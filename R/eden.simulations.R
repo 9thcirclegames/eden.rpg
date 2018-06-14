@@ -62,14 +62,13 @@ eden.sim$pillar <- factor(eden.sim$pillar, levels = c("strong", "medium", "weak"
 ##
 test.dice <- 8
 max.daat <- 7
-eden.plot <- ggplot(data=eden.sim %>% filter(dice.size == 8 & daat <= max.daat), aes(x = revelation)) + 
+ggplot(data=eden.sim %>% filter(dice.size == test.dice & daat <= max.daat), aes(x = total.success)) + 
   geom_bar(aes(y = (..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..], fill=daat<3), colour="grey40", alpha=0.2) +
   facet_grid(veil ~ pillar) +
   labs(title=sprintf("Percentuale di successi (Da'at < %d, d%d)", max.daat + 1, test.dice)) +
   scale_y_continuous(labels=percent) +
   labs(x="Successi [Nr]", y="Risultati su tiri [%]")
 
-eden.plot
 
 eden.density <- ggplot(data=eden.sim %>% filter(dice.size == 8 & daat <= max.daat), aes(x = total.success)) + 
   geom_density(aes(y = (..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..]), color="grey40", fill="grey40", alpha=0.2, show.legend = FALSE) +
